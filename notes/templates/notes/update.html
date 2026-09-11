@@ -15,6 +15,13 @@
     name="detalhes"
     placeholder="Digite o conteúdo..."
   >{{ note.content }}</textarea>
+  <input
+    class="form-card-tag"
+    type="text"
+    name="tag"
+    value="{{ note.tag.nome|default:'' }}"
+    placeholder="Adicione uma tag"
+  />
   <div class="form-actions">
     <a class="btn btn-cancel" href="{% url 'index' %}">Cancelar</a>
     <button class="btn" type="submit">Salvar</button>

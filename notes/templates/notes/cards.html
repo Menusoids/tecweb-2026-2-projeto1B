@@ -1,0 +1,15 @@
+<div class="card-container">
+  {% for note in notes %}
+  <div class="card">
+    <h3 class="card-title">{{ note.title }}</h3>
+    <div class="card-content">
+      <p>{{ note.content|default:'' }}</p>
+    </div>
+    <div class="card-actions">
+    {% if note.tag %}<span class="card-tag">#{{ note.tag.nome }}</span>{% endif %}
+    <a class="card-action" href="{% url 'update' note.id %}">editar</a>
+    <a class="card-action" href="{% url 'delete' note.id %}">apagar</a>
+  </div>
+  </div>
+  {% endfor %}
+</div>

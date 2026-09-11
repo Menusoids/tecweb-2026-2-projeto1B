@@ -1,0 +1,7 @@
+{% extends "notes/base.html" %}
+
+{% block content %}
+<h2 class="page-title">#{{ tag.nome }}</h2>
+<a class="tags-link" href="{% url 'tags' %}">todas as tags</a>
+{% include "notes/cards.html" %}
+{% endblock %}

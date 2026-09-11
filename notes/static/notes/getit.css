@@ -50,7 +50,7 @@ body {
 .form-card{
   margin-top: 1rem;
   padding: 0.7rem;
-  height: 7rem;
+  height: 10rem;
   width: 35rem;
   display: flex;
   flex-direction: column;
@@ -68,11 +68,18 @@ body {
   font-size: 1.2rem;
 }
 
-.autoresize{
+.autoresize,
+.form-card-tag{
   width: 100%;
   height: 30%;
   border: none;
   font-family: 'Roboto', sans-serif;
+}
+
+.form-card-tag{
+  height: auto;
+  font-size: 1.2rem;
+  margin-bottom: 0.6rem;
 }
 
 .btn{
@@ -250,6 +257,45 @@ body {
 .card-action:hover {
   opacity: 1;
   text-decoration: underline;
+}
+
+.tags-link {
+  margin-top: 1rem;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.85rem;
+  color: #4c4c4c;
+}
+
+.page-title {
+  margin-top: 2rem;
+  font-family: "Permanent Marker", cursive;
+  font-size: 1.6rem;
+  color: #2c2c2c;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  max-width: 40rem;
+  margin-top: 1.5rem;
+}
+
+.tag-list .card-tag {
+  font-size: 1rem;
+  text-decoration: none;
+  box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.3);
+}
+
+.card-tag {
+  font-family: "Permanent Marker", cursive;
+  font-size: 0.75rem;
+  color: #2c2c2c;
+  background-color: #f7d736;
+  padding: 0.25rem 0.6rem;
+  border-radius: 1rem;
+  margin-right: auto;
 }
 
 .form-card-edit {
