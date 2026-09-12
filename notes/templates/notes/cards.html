@@ -6,7 +6,7 @@
       <p>{{ note.content|default:'' }}</p>
     </div>
     <div class="card-actions">
-    {% if note.tag %}<span class="card-tag">#{{ note.tag.nome }}</span>{% endif %}
+    {% for tag in note.tags.all %}<a class="card-tag" href="{% url 'tag_detail' tag.id %}">#{{ tag.nome }}</a>{% endfor %}
     <a class="card-action" href="{% url 'update' note.id %}">editar</a>
     <a class="card-action" href="{% url 'delete' note.id %}">apagar</a>
   </div>

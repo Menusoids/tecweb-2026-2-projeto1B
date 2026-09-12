@@ -2,20 +2,18 @@ from django.shortcuts import render, redirect
 from .models import Note, Tag
 
 
-def get_tag(request):
-    # tag vazia = nota sem tag; nome novo cria a tag na hora
-    tag_nome = request.POST.get('tag', '').strip()
-    if not tag_nome:
-        return None
-    tag, _ = Tag.objects.get_or_create(nome=tag_nome)
-    return tag
+def get_tags(request):
+    # "tag1, tag2" -> lista de Tag; vazio = nota sem tag; nome novo cria a tag na hora
+    nomes = {n.strip() for n in request.POST.get('tags', '').split(',') if n.strip()}
+    return [Tag.objects.get_or_create(nome=nome)[0] for nome in nomes]
 
 
 def index(request):
     if request.method == 'POST':
         title = request.POST.get('titulo')
         content = request.POST.get('detalhes')
-        Note.objects.create(title=title, content=content, tag=get_tag(request))
+        note = Note.objects.create(title=title, content=content)
+        note.tags.set(get_tags(request))
         return redirect('index')
     else:
         all_notes = Note.objects.all()
@@ -32,8 +30,8 @@ def update(request, id):
         note = Note.objects.get(id=id)
         note.title = title
         note.content = content
-        note.tag = get_tag(request)
         note.save()
+        note.tags.set(get_tags(request))
         return redirect('index')
     else:
         note = Note.objects.get(id=id)

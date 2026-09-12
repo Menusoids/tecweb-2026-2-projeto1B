@@ -8,19 +8,19 @@
     type="text"
     name="titulo"
     value="{{ note.title }}"
-    placeholder="Título"
+    placeholder="TÃ­tulo"
   />
   <textarea
     class="autoresize"
     name="detalhes"
-    placeholder="Digite o conteúdo..."
+    placeholder="Digite o conteÃºdo..."
   >{{ note.content }}</textarea>
   <input
     class="form-card-tag"
     type="text"
-    name="tag"
-    value="{{ note.tag.nome|default:'' }}"
-    placeholder="Adicione uma tag"
+    name="tags"
+    value="{{ note.tag_names }}"
+    placeholder="Tags separadas por vírgula"
   />
   <div class="form-actions">
     <a class="btn btn-cancel" href="{% url 'index' %}">Cancelar</a>
