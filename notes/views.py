@@ -1,4 +1,8 @@
-from django.shortcuts import render, redirect
+import json
+
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from .models import Note, Tag
 
 
@@ -43,3 +47,35 @@ def tags(request):
 def tag_detail(request, id):
     tag = Tag.objects.get(id=id)
     return render(request, 'notes/tag.html', {'tag': tag, 'notes': tag.note_set.all()})
+
+
+# API REST consumida pelo notes-frontend (React)
+# ponytail: JsonResponse puro no lugar do Django REST framework, sem dependência nova
+def note_json(note):
+    return {'id': note.id, 'title': note.title, 'content': note.content}
+
+
+@csrf_exempt
+def api_note(request, note_id):
+    note = get_object_or_404(Note, id=note_id)
+
+    if request.method == 'PUT':
+        data = json.loads(request.body)
+        note.title = data['title']
+        note.content = data['content']
+        note.save()
+
+    if request.method == 'DELETE':
+        note.delete()
+        return HttpResponse(status=204)
+
+    return JsonResponse(note_json(note))
+
+
+@csrf_exempt
+def api_notes(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        Note.objects.create(title=data['title'], content=data['content'])
+
+    return JsonResponse([note_json(n) for n in Note.objects.all()], safe=False)
